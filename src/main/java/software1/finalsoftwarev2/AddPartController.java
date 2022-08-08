@@ -6,20 +6,25 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import software1.finalsoftwarev2.HelloApplication;
+
 public class AddPartController implements Initializable {
 
     Stage stage;
     Parent scene;
+
+    @FXML
+    private RadioButton addPartInhouseBtn;
+
+    @FXML
+    private RadioButton addPartOutsourceBtn;
 
     @FXML
     private ToggleGroup bTogGroup;
@@ -68,7 +73,19 @@ public class AddPartController implements Initializable {
 
     @FXML
     void onActionSaveNewPart(ActionEvent event) {
+        int id = HelloApplication.partIdCounter += 1;
+        String name = partNameTxt.getText();
+        int inv = Integer.parseInt(partInvTxt.getText());
+        double price = Integer.parseInt(partPriceTxt.getText());
+        int max = Integer.parseInt(partMaxTxt.getText());
+        int min = Integer.parseInt(partMinTxt.getText());
+        if (addPartInhouseBtn.isSelected()) {
+            int machineId = Integer.parseInt(partMacIDCompNameTxt.getText());
+        } else {
+            String CompanyName = partMacIDCompNameTxt.getText();
+        }
 
+        System.out.println(id);
     }
 
     @Override

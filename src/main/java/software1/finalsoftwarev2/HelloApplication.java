@@ -12,6 +12,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
+
+    // Creating the counter for unique INTs
+    static int partIdCounter = 5;
+    static int productIdCounter = 2;
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("MainScreen.fxml"));
@@ -22,6 +27,7 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
+
 
         // Creating Test Data
         InHouse brake = new InHouse(1, 14, 1, 20, "Brake Disks", 119.99, 3);
