@@ -1,5 +1,9 @@
 package software1.finalsoftwarev2;
 
+import Model.Inventory;
+import Model.Part;
+import Model.Product;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,38 +12,41 @@ import javafx.scene.control.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
 public class AddProductController implements Initializable {
 
+    public ObservableList<Part>;
+
 
     @FXML
-    private TableColumn<?, ?> addProductAssociatedPartIdCol;
+    private TableColumn<Part, Integer> addProductAssociatedPartIdCol;
 
     @FXML
-    private TableColumn<?, ?> addProductAssociatedPartInvCol;
+    private TableColumn<Part, Integer> addProductAssociatedPartInvCol;
 
     @FXML
-    private TableColumn<?, ?> addProductAssociatedPartNameCol;
+    private TableColumn<Part, String> addProductAssociatedPartNameCol;
 
     @FXML
-    private TableColumn<?, ?> addProductAssociatedPartPriceCol;
+    private TableColumn<Part, Double> addProductAssociatedPartPriceCol;
 
     @FXML
-    private TableView<?> addProductAssociatedPartTableView;
+    private TableView<Part> addProductAssociatedPartTableView;
 
     @FXML
-    private TableColumn<?, ?> addProductAvailablePartIdCol;
+    private TableColumn<Part, Integer> addProductAvailablePartIdCol;
 
     @FXML
-    private TableColumn<?, ?> addProductAvailablePartInvCol;
+    private TableColumn<Part, Integer> addProductAvailablePartInvCol;
 
     @FXML
-    private TableColumn<?, ?> addProductAvailablePartNameCol;
+    private TableColumn<Part, String> addProductAvailablePartNameCol;
 
     @FXML
-    private TableColumn<?, ?> addProductAvailablePartPriceCol;
+    private TableColumn<Part, Double> addProductAvailablePartPriceCol;
 
     @FXML
-    private TableView<?> addProductAvailablePartTableView;
+    private TableView<Part> addProductAvailablePartTableView;
 
     @FXML
     private TextField addProductIdTxt;
@@ -89,6 +96,8 @@ public class AddProductController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        addProductAvailablePartTableView.setItems(Inventory.getAllParts());
+        addProductAssociatedPartTableView.setItems(Product.getAllAssociatedParts());
+        );
     }
 }

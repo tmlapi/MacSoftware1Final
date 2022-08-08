@@ -21,34 +21,34 @@ public class ModifyProductController implements Initializable {
     Parent scene;
 
     @FXML
-    private TableColumn<?, ?> modifyProductAssociatedPartIdCol;
+    private TableColumn<Part, Integer> modifyProductAssociatedPartIdCol;
 
     @FXML
-    private TableColumn<?, ?> modifyProductAssociatedPartInvCol;
+    private TableColumn<Part, Integer> modifyProductAssociatedPartInvCol;
 
     @FXML
-    private TableColumn<?, ?> modifyProductAssociatedPartNameCol;
+    private TableColumn<Part, String> modifyProductAssociatedPartNameCol;
 
     @FXML
-    private TableColumn<?, ?> modifyProductAssociatedPartPriceCol;
+    private TableColumn<Part, Double> modifyProductAssociatedPartPriceCol;
 
     @FXML
-    private TableView<?> modifyProductAssociatedPartTableView;
+    private TableView<Part> modifyProductAssociatedPartTableView;
 
     @FXML
-    private TableColumn<?, ?> modifyProductAvailablePartIdCol;
+    private TableColumn<Part, Integer> modifyProductAvailablePartIdCol;
 
     @FXML
-    private TableColumn<?, ?> modifyProductAvailablePartInvCol;
+    private TableColumn<Part, Integer> modifyProductAvailablePartInvCol;
 
     @FXML
-    private TableColumn<?, ?> modifyProductAvailablePartNameCol;
+    private TableColumn<Part, String> modifyProductAvailablePartNameCol;
 
     @FXML
-    private TableColumn<?, ?> modifyProductAvailablePartPriceCol;
+    private TableColumn<Part, Double> modifyProductAvailablePartPriceCol;
 
     @FXML
-    private TableView<?> modifyProductAvailablePartTableView;
+    private TableView<Part> modifyProductAvailablePartTableView;
 
     @FXML
     private TextField modifyProductIdTxt;
