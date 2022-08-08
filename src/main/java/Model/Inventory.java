@@ -15,10 +15,10 @@ public class Inventory {
 
 
     // Adding the adds for the above ObservableLists
-    public static void newPart(Part part) {
+    public static void addPart(Part part) {
         allParts.add(part);
     }
-    public static void newProduct (Product product) {
+    public static void addProduct (Product product) {
         allProducts.add(product);
     }
 

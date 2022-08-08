@@ -37,11 +37,11 @@ public class HelloApplication extends Application {
         Product trexBike = new Product(1, 2, 1, 5, "Trex Bike", 820.13);
 
         // Adding test data to Observable Lists
-        Inventory.newPart(brake);
-        Inventory.newPart(handleBars);
-        Inventory.newPart(frame);
-        Inventory.newPart(tires);
-        Inventory.newProduct(trexBike);
+        Inventory.addPart(brake);
+        Inventory.addPart(handleBars);
+        Inventory.addPart(frame);
+        Inventory.addPart(tires);
+        Inventory.addProduct(trexBike);
 
 
         launch();

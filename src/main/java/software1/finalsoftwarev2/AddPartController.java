@@ -1,5 +1,8 @@
 package software1.finalsoftwarev2;
 
+import Model.InHouse;
+import Model.Inventory;
+import Model.Outsourced;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -72,20 +75,35 @@ public class AddPartController implements Initializable {
     }
 
     @FXML
-    void onActionSaveNewPart(ActionEvent event) {
+    void onActionSaveNewPart(ActionEvent event) throws IOException {
         int id = HelloApplication.partIdCounter += 1;
         String name = partNameTxt.getText();
-        int inv = Integer.parseInt(partInvTxt.getText());
-        double price = Integer.parseInt(partPriceTxt.getText());
+        int stock = Integer.parseInt(partInvTxt.getText());
+        double price = Double.parseDouble(partPriceTxt.getText());
         int max = Integer.parseInt(partMaxTxt.getText());
         int min = Integer.parseInt(partMinTxt.getText());
+
+        // Had to do this because system wasn't recognizing the variable since it was initilized in for loop
+        int machineId = 0;
+        String companyName = null;
         if (addPartInhouseBtn.isSelected()) {
-            int machineId = Integer.parseInt(partMacIDCompNameTxt.getText());
+            machineId = Integer.parseInt(partMacIDCompNameTxt.getText());
         } else {
-            String CompanyName = partMacIDCompNameTxt.getText();
+            companyName = partMacIDCompNameTxt.getText();
         }
 
-        System.out.println(id);
+        // Saving outsource vs in house. Error i ran into here was that the variables weren't lining up with constructor
+        //so i had to reorganize them
+        if (addPartInhouseBtn.isSelected()) {
+            Inventory.addPart(new InHouse(id, stock, min, max, name, price, machineId));
+        } else {
+            Inventory.addPart(new Outsourced(id, stock, min, max, name, price, companyName));
+        }
+
+        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     @Override
