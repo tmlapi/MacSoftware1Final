@@ -150,8 +150,11 @@ public class MainScreenController implements Initializable {
         loader.setLocation(getClass().getResource("ModifyProducts.fxml"));
         loader.load();
 
+        int partIndex = productTableView.getSelectionModel().getSelectedIndex();
+        Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
+
         software1.finalsoftwarev2.ModifyProductController MODProController = loader.getController();
-        MODProController.sendProduct(productTableView.getSelectionModel().getSelectedItem());
+        MODProController.sendProduct(partIndex, selectedProduct);
 
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
         Parent scene = loader.getRoot();

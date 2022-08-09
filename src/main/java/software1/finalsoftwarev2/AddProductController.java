@@ -112,8 +112,8 @@ public class AddProductController implements Initializable {
             Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "No Changes Made");
             alert1.show();
         }
-    }
 
+    }
 
     // Because it is not static, i need an instance of Product to access the methods within Product. Once i am able to
     //creat those, i can access them and add the mto all associated parts!
@@ -165,3 +165,4 @@ public class AddProductController implements Initializable {
         addProductAssociatedPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 }
+

@@ -14,8 +14,8 @@ import java.io.IOException;
 public class HelloApplication extends Application {
 
     // Creating the counter for unique INTs
-    static int partIdCounter = 5;
-    static int productIdCounter = 2;
+    static int partIdCounter = 4;
+    static int productIdCounter = 1;
 
     @Override
     public void start(Stage stage) throws IOException {
