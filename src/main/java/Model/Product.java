@@ -1,10 +1,13 @@
 package Model;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Product {
 
-    private ObservableList <Part> associatedParts;
+    //I completely forgot to initilize this to FXCollections.observableArrayList() so it kept returning null and
+    //crashing my program. Took an hour but fixed!
+    private ObservableList <Part> associatedParts = FXCollections.observableArrayList();
     private int id, stock, min, max;
     private String name;
     private double price;
@@ -67,10 +70,6 @@ public class Product {
     }
 
     public void addAssociattedPart (Part part) {
-        associatedParts.add(part);
-    }
-
-    public void addAssociatedPart(Part part) {
         associatedParts.add(part);
     }
 

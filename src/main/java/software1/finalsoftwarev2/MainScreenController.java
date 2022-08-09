@@ -147,7 +147,7 @@ public class MainScreenController implements Initializable {
     @FXML
     void onActionModifyProduct(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("ModifyProduct.fxml"));
+        loader.setLocation(getClass().getResource("ModifyProducts.fxml"));
         loader.load();
 
         software1.finalsoftwarev2.ModifyProductController MODProController = loader.getController();
