@@ -143,7 +143,7 @@ public class ModifyProductController implements Initializable {
 
         // THis is run to compare the local associated parts table with the associated parts table within the Product class
         //if it finds that a part is contained in the product class one and NOT in the local one (because we we removed it
-        //earlier with the button, it goes ahead and deletes it form the product associated table one 
+        //earlier with the button, it goes ahead and deletes it form the product associated table one
         for (Part part : updatedProduct.getAllAssociatedParts()) {
             if (updatedProduct.getAllAssociatedParts().contains(part) && !allAssociatedParts.contains(part)) {
                 updatedProduct.deleteAssociatedPart(part);

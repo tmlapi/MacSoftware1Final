@@ -114,52 +114,64 @@ public class MainScreenController implements Initializable {
 
     @FXML
     void onActionModifyPart(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("ModifyPart.fxml"));
-        loader.load();
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("ModifyPart.fxml"));
+            loader.load();
 
-        software1.finalsoftwarev2.ModifyPartsController MODController = loader.getController();
-        int partIndex = partTableView.getSelectionModel().getSelectedIndex();
-        Part SP = partTableView.getSelectionModel().getSelectedItem();
+            software1.finalsoftwarev2.ModifyPartsController MODController = loader.getController();
+            int partIndex = partTableView.getSelectionModel().getSelectedIndex();
+            Part SP = partTableView.getSelectionModel().getSelectedItem();
 
 
-        // To make this work for the SubClasses of Part, i had to create two new methods one for Inhouse and
-        //one for outsourced. Then, after running through a IF statement, was able to correctly send right stuff
-        // the big issue I also had here was sending the partIndex. What i did was, i made an 'int index' as part of the
-        //parameter for my send methods. I did this because there was no way to access it from the ModifyPartsController
-        //on its own. By making it part of the send method, and calling the send method within the MainScreen, i was able
-        // to pass the index to ModifyParts.fxml when it opened up ModifyParts, part of the Send method, sets a local
-        //index value based on what was selected (partTableView.getSelectionModel().getSelectedItem()) on the MainScreen
-        // This sets the current index to whatever was selected before hitting 'modify' on the main screen.
-        if (SP instanceof InHouse) {
-            MODController.sendInhousePart(partIndex, SP);
+            // To make this work for the SubClasses of Part, i had to create two new methods one for Inhouse and
+            //one for outsourced. Then, after running through a IF statement, was able to correctly send right stuff
+            // the big issue I also had here was sending the partIndex. What i did was, i made an 'int index' as part of the
+            //parameter for my send methods. I did this because there was no way to access it from the ModifyPartsController
+            //on its own. By making it part of the send method, and calling the send method within the MainScreen, i was able
+            // to pass the index to ModifyParts.fxml when it opened up ModifyParts, part of the Send method, sets a local
+            //index value based on what was selected (partTableView.getSelectionModel().getSelectedItem()) on the MainScreen
+            // This sets the current index to whatever was selected before hitting 'modify' on the main screen.
+            if (SP instanceof InHouse) {
+                MODController.sendInhousePart(partIndex, SP);
 
-        } else {
-            MODController.sendOutsourcedPart(partIndex, SP);
+            } else {
+                MODController.sendOutsourcedPart(partIndex, SP);
+            }
+
+            stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.show();
+        } catch (NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Select a Part First!");
+            alert.show();
         }
-
-        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-        Parent scene = loader.getRoot();
-        stage.setScene(new Scene(scene));
-        stage.show();
     }
 
     @FXML
     void onActionModifyProduct(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("ModifyProducts.fxml"));
-        loader.load();
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("ModifyProducts.fxml"));
+            loader.load();
 
-        int partIndex = productTableView.getSelectionModel().getSelectedIndex();
-        Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
+            int partIndex = productTableView.getSelectionModel().getSelectedIndex();
+            Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
 
-        software1.finalsoftwarev2.ModifyProductController MODProController = loader.getController();
-        MODProController.sendProduct(partIndex, selectedProduct);
+            software1.finalsoftwarev2.ModifyProductController MODProController = loader.getController();
+            MODProController.sendProduct(partIndex, selectedProduct);
 
-        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-        Parent scene = loader.getRoot();
-        stage.setScene(new Scene(scene));
-        stage.show();
+            stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.show();
+        } catch (NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Select a Product First!");
+            alert.show();
+        }
     }
 
     @Override
