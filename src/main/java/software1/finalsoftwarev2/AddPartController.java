@@ -16,8 +16,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import software1.finalsoftwarev2.HelloApplication;
-
+/**
+ * Main AddParts Contorller. This is the main class that gives action to the AddParts fxml.
+ */
 public class AddPartController implements Initializable {
 
     Stage stage;
@@ -56,28 +57,49 @@ public class AddPartController implements Initializable {
     @FXML
     private TextField partPriceTxt;
 
+    /**
+     * Inhouse radio button.
+     * This is the radio button that gives the form the Machine ID txt field.
+     * @param event ActionEvent
+     */
     @FXML
     void inhouseRadio(ActionEvent event) {
         machineCompanyLbl.setText("Machine ID");
     }
 
+    /**
+     * Outsourced radio button.
+     * This is the radio buton that gives the form the Company Name Txt field.
+     * @param event ActionEvent
+     */
     @FXML
     void outsourcedRadio(ActionEvent event) {
         machineCompanyLbl.setText("Company Name");
     }
 
+    /**
+     * Cancel Button.
+     * This is the cancel button that goes back to main screen if user doesn't want to continue with adding the part.
+     * @param event ActionEvent
+     */
     @FXML
     void onActionCancelAddPart(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+        scene = FXMLLoader.load(getClass().getResource("MainMainScreen.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }
 
+    /**
+     * Save New Part Button.
+     * This is the button that allows you to save new part and goes through logistical checks in the process. It then checks
+     * the radio button and creates a new correlated part using addPart method.
+     * @param event ActionEvent
+     */
     @FXML
     void onActionSaveNewPart(ActionEvent event) throws IOException {
         try {
-            int id = HelloApplication.partIdCounter += 1;
+            int id = Main.partIdCounter += 1;
             String name = partNameTxt.getText();
             int stock = Integer.parseInt(partInvTxt.getText());
             double price = Double.parseDouble(partPriceTxt.getText());
@@ -122,6 +144,11 @@ public class AddPartController implements Initializable {
         }
     }
 
+    /**
+     * Main initialize method.
+     * This is the main method for the addpart controller.
+     * @param url url
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

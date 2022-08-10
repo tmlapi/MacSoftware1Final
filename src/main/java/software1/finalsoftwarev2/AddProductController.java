@@ -20,7 +20,9 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-
+/**
+ * THis is the Add Product class.
+ */
 public class AddProductController implements Initializable {
 
     Stage stage;
@@ -80,6 +82,11 @@ public class AddProductController implements Initializable {
     @FXML
     private TextField addProductSearch;
 
+    /**
+     * Add Product button.
+     * This is the button that adds the product to the table as well as the product list
+     * @param event ActionEvent
+     */
     @FXML
     void addProductAddBtn(ActionEvent event) {
         Part SP = addProductAvailablePartTableView.getSelectionModel().getSelectedItem();
@@ -92,6 +99,11 @@ public class AddProductController implements Initializable {
         }
     }
 
+    /**
+     * Add Proudct Cancel Button.
+     * This is the button that allows the user to  cancel the addition of a new product and go back to main screen.
+     * @param event ActionEvent
+     */
     @FXML
     void addProductCancelBtn(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
@@ -100,6 +112,11 @@ public class AddProductController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Part removal button for associated parts.
+     * This is the button that allows you to remove associated parts from a product.
+     * @param event ActionEvent
+     */
     @FXML
     void addProductRemoveBtn(ActionEvent event) {
         Part deleteAssociatedPart = addProductAssociatedPartTableView.getSelectionModel().getSelectedItem();
@@ -118,12 +135,19 @@ public class AddProductController implements Initializable {
     // Because it is not static, i need an instance of Product to access the methods within Product. Once i am able to
     //creat those, i can access them and add the mto all associated parts!
     //Example Product p = new Product(1, 3, 1, 4, "Bike", 32.32);
-    //        p.getAllAssociatedParts().addAll(allAssociatedParts);
+
+    /**
+     * Save New Product Button.
+     * This is the action event that allows you to save a new button, assigns the new products to associated list and assigns
+     * associated parts to associated list for that product. Also does logistical tests.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void addProductSaveBtn(ActionEvent event) throws IOException {
 
         try {
-            int id = HelloApplication.productIdCounter += 1;
+            int id = Main.productIdCounter += 1;
             int stock = Integer.parseInt(addProductInvTxt.getText());
             int min = Integer.parseInt(addProductMinTxt.getText());
             String name = addProductNameTxt.getText();
@@ -158,6 +182,11 @@ public class AddProductController implements Initializable {
 
     }
 
+    /**
+     * Part search button.
+     * Allows you to search for abailable parts by name or id. Then with filter the table to reflect so.
+     * @param event ActionEvent
+     */
     @FXML
     void addProductSearchBtn(ActionEvent event) {
         String searchResult = String.valueOf(addProductSearch.getText());
@@ -167,6 +196,12 @@ public class AddProductController implements Initializable {
         addProductAvailablePartTableView.setItems(filteredParts);
     }
 
+    /**
+     * Main initializer for AddProduct screen.
+     * Sets up the tables accordingly.
+     * @param url url
+     * @param resourceBundle resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addProductAvailablePartTableView.setItems(Inventory.getAllParts());

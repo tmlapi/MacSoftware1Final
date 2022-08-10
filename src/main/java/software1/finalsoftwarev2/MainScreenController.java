@@ -21,10 +21,15 @@ import java.util.ResourceBundle;
 import static Model.Inventory.getAllParts;
 import static Model.Inventory.getAllProducts;
 
+/**
+ * MainScreen Controller.
+ * This is the Controller for the main screen that house everything needed for the main screen to function properly
+ */
 public class MainScreenController implements Initializable {
 
     Stage stage;
     Parent scene;
+
 
     @FXML
     private TableColumn<Part, Integer> partIdCol;
@@ -62,6 +67,11 @@ public class MainScreenController implements Initializable {
     @FXML
     private TableView<Product> productTableView;
 
+    /**
+     * AddPart button method.
+     * Open to the addpart fxml screen.
+     * @param event this event is tied to the button of the original source to help load the stage
+     */
     @FXML
     void onActionAddPart(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
@@ -70,6 +80,12 @@ public class MainScreenController implements Initializable {
         stage.show();
     }
 
+    /**
+     * AddProduct button method.
+     * Open to the addproduct fxml screen.
+     * @param event this even is tied to the button of the original source to help load the stage
+     * @throws IOException
+     */
     @FXML
     void onActionAddProduct(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
@@ -78,6 +94,11 @@ public class MainScreenController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Delete part action.
+     * Gets the selected part, asks for user input if want to delete, and removes the part from the table.
+     * @param event ActionEvent
+     */
     @FXML
     void onActionDeletePart(ActionEvent event) {
         Part deletePart = partTableView.getSelectionModel().getSelectedItem();
@@ -95,6 +116,13 @@ public class MainScreenController implements Initializable {
 
 
     // Checks to make sure no associated parts exist, before deletion!
+
+    /**
+     * Deletes product action.
+     * Gets selected product, asks for user input if want to delete, and removes product form teh table. Won't allow
+     * deletion if product has associated parts!
+     * @param event ActionEvent
+     */
     @FXML
     void onActionDeleteProduct(ActionEvent event) {
         Product deleteProduct = productTableView.getSelectionModel().getSelectedItem();
@@ -116,11 +144,21 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Exit button.
+     * Upon hitting the exit button, program terminates with no error codes.
+     * @param event ActionEvent
+     */
     @FXML
     void onActionExit(ActionEvent event) {
         System.exit(0);
     }
 
+    /**
+     * Modify Button.
+     * Once clicked, the program opens the modify part fxml, and based on the selected part, with populate correct data.
+     * @param event ActionEvent
+     */
     @FXML
     void onActionModifyPart(ActionEvent event) throws IOException {
         try{
@@ -159,6 +197,11 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Modify Product Button.
+     * Once clicked, the program opens the modify product fxml, and based on the selected product, with populate correct data.
+     * @param event ActionEvent
+     */
     @FXML
     void onActionModifyProduct(ActionEvent event) throws IOException {
         try {
@@ -183,6 +226,12 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * MainScreen Initializer.
+     * This is the main initilizer that populates the tables with the correct data
+     * @param url url
+     * @param resourceBundle resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -205,6 +254,12 @@ public class MainScreenController implements Initializable {
     }
 
     // Search/Filtered List
+
+    /**
+     * Part Search button.
+     * Allows user to type is name or id to search for part.
+     * @param event ActionEvent
+     */
     @FXML
     public void partSearchBtn(ActionEvent event) {
 
@@ -216,6 +271,11 @@ public class MainScreenController implements Initializable {
         partTableView.setItems(filteredParts);
     }
 
+    /**
+     * Product Search Button.
+     * Allows user to type in name or id to search for product
+     * @param event ActionEvent
+     */
     @FXML
     public void productSearchBtn(ActionEvent event) {
 

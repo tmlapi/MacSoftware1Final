@@ -11,21 +11,40 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+/**
+ * This is the main application that starts the application.
+ */
+public class Main extends Application {
 
     // Creating the counter for unique INTs
-    static int partIdCounter = 4;
-    static int productIdCounter = 1;
+    /**
+     * Creates a unique counter field for the ids that get auto generated!
+     */
+    public static int partIdCounter = 0;
 
+    /**
+     * Creates a unique counter field for the New products that get auto generated
+     */
+    public static int productIdCounter = 0;
+
+    /**
+     * Starts the initial stage and scene that the application will be based off of and build on
+     * @param stage Creates a new Stage object
+     */
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("MainScreen.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MainScreen.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 500);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
     }
 
+    /**
+     * Main method.
+     * This is the main method that loads test data in and actually launches app!
+     * @param args Main arguments of the program
+     */
     public static void main(String[] args) {
 
 
@@ -44,6 +63,9 @@ public class HelloApplication extends Application {
         Inventory.addProduct(trexBike);
 
 
+        /**
+         * Launches the application
+         */
         launch();
     }
 }
