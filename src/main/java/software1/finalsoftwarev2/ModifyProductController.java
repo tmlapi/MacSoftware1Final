@@ -154,6 +154,11 @@ public class ModifyProductController implements Initializable {
      * Allows user to save new product to all proudct list. Also allows user to update associate parts and all associated lists.
      * Performs logistical checks.
      * @param event ActionEvent
+     *
+     * <p><b>LOGICAL/RUNTIME ERROR</b> The issue i had was how to delete the unwanted parts from the AssociatedParts list
+     *  within the Product class. What i did was use the temporary associated parts list to run a enhanced for loop.
+     *  In there, if a part was in the AssociatedParts but NOT the temporary local list, i removed it because that
+     *   means the user deleted the associated part.</p>
      */
     @FXML
     void modifyProductSaveBtn(ActionEvent event) {
@@ -262,7 +267,7 @@ public class ModifyProductController implements Initializable {
 
     /**
      * Main initilize method for the modify product controller.
-     * @param url url 
+     * @param url url
      * @param resourceBundle resourceBundle
      */
     @Override

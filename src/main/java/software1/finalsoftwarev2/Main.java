@@ -13,6 +13,11 @@ import java.io.IOException;
 
 /**
  * This is the main application that starts the application.
+ *
+ * <p><b>RUNTIME ERROR</b> Found in the AppProductController.java file in the JavaDocs for the addProductSaveBtn</p>
+ *<p><b>RUNTIME ERROR</b> Found in the ModifyProductController.java file in the JavaDocs for modifyProductSaveBtn</p>
+ * <p><b>FUTURE ENHANCEMENTS</b> The future enhancements may look at incorporating a database that keeps track of changes; even once the program close.
+ * It could also aim to improving redundancies to make less code!</p>
  */
 public class Main extends Application {
 
@@ -44,6 +49,9 @@ public class Main extends Application {
      * Main method.
      * This is the main method that loads test data in and actually launches app!
      * @param args Main arguments of the program
+     *
+     *<p><b>JAVADOCS LOCATION</b> The location of JavaDocs folder, should be in the main category of files labeled
+     * 'JavaDocs'</p>
      */
     public static void main(String[] args) {
 

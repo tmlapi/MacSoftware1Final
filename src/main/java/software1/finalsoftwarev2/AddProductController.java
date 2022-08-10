@@ -142,6 +142,10 @@ public class AddProductController implements Initializable {
      * associated parts to associated list for that product. Also does logistical tests.
      * @param event
      * @throws IOException
+     *
+     * <p><b>LOGICAL/RUNTIME ERROR</b> I had a very hard time incorporating the methods from Product into this controller as they weren't static.
+     * Because it is not static, i need an instance of Product to access the methods within Product. Once i am able to
+     * create a instance, i can access the methods or list within the proudct model, which is what i did below! </p>
      */
     @FXML
     void addProductSaveBtn(ActionEvent event) throws IOException {
