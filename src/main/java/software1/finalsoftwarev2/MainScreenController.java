@@ -93,17 +93,26 @@ public class MainScreenController implements Initializable {
         }
     }
 
+
+    // Checks to make sure no associated parts exist, before deletion!
     @FXML
     void onActionDeleteProduct(ActionEvent event) {
         Product deleteProduct = productTableView.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.WARNING, "Product Will Be Deleted, Press 'OK' To Continue!", ButtonType.OK, ButtonType.CANCEL);
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            Inventory.deleteProduct(deleteProduct);
-        } else if (result.get() == ButtonType.CANCEL) {
-            Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "No Changes Made");
-            alert1.show();
+        if (deleteProduct.getAllAssociatedParts().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Product Will Be Deleted, Press 'OK' To Continue!", ButtonType.OK, ButtonType.CANCEL);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                Inventory.deleteProduct(deleteProduct);
+            } else if (result.get() == ButtonType.CANCEL) {
+                Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "No Changes Made");
+                alert1.show();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Associated Parts Exist for This Product. Cannot Delete Product!");
+            alert.show();
         }
     }
 
