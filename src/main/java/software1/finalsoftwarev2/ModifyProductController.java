@@ -122,34 +122,55 @@ public class ModifyProductController implements Initializable {
 
     @FXML
     void modifyProductSaveBtn(ActionEvent event) {
+        try {
 
-        int id = Integer.parseInt(modifyProductIdTxt.getText());
-        int stock = Integer.parseInt(modifyProductInvTxt.getText());
-        int min = Integer.parseInt(modifyProductMinTxt.getText());
-        String name = modifyProductNameTxt.getText();
-        int max = Integer.parseInt(modifyProductMaxTxt.getText());
-        double price = Double.parseDouble(modifyProductPriceTxt.getText());
+            int id = Integer.parseInt(modifyProductIdTxt.getText());
+            int stock = Integer.parseInt(modifyProductInvTxt.getText());
+            int min = Integer.parseInt(modifyProductMinTxt.getText());
+            String name = modifyProductNameTxt.getText();
+            int max = Integer.parseInt(modifyProductMaxTxt.getText());
+            double price = Double.parseDouble(modifyProductPriceTxt.getText());
 
-        Product updatedProduct = new Product(id, stock, min, max, name, price);
-        Inventory.updateProduct(currentIndex, updatedProduct);
+            if (min > max) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Min Must Be Less Than Max!");
+                alert.show();
+            } else if (stock < min || stock > max ){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Inventory Must Be Between Min and Max!");
+                alert.show();
+            } else {
+                Product updatedProduct = new Product(id, stock, min, max, name, price);
+                Inventory.updateProduct(currentIndex, updatedProduct);
 
-        //This takes our allAssociatedParts table and compares it to the associatedparts table. If a part isn't in the
-        //associatedparts table within the Product class, it adds it
-        for (Part part : allAssociatedParts) {
-            if (!updatedProduct.getAllAssociatedParts().contains(part)) {
-                updatedProduct.addAssociattedPart(part);
+                //This takes our allAssociatedParts table and compares it to the associatedparts table. If a part isn't in the
+                //associatedparts table within the Product class, it adds it
+                for (Part part : allAssociatedParts) {
+                    if (!updatedProduct.getAllAssociatedParts().contains(part)) {
+                        updatedProduct.addAssociattedPart(part);
+                    }
+                }
+
+                // THis is run to compare the local associated parts table with the associated parts table within the Product class
+                //if it finds that a part is contained in the product class one and NOT in the local one (because we removed it
+                //earlier with the button, it goes ahead and deletes it form the product associated table one
+                for (Part part : updatedProduct.getAllAssociatedParts()) {
+                    if (updatedProduct.getAllAssociatedParts().contains(part) && !allAssociatedParts.contains(part)) {
+                        updatedProduct.deleteAssociatedPart(part);
+                    }
+                }
+
+                stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();
             }
-        }
 
-        // THis is run to compare the local associated parts table with the associated parts table within the Product class
-        //if it finds that a part is contained in the product class one and NOT in the local one (because we we removed it
-        //earlier with the button, it goes ahead and deletes it form the product associated table one
-        for (Part part : updatedProduct.getAllAssociatedParts()) {
-            if (updatedProduct.getAllAssociatedParts().contains(part) && !allAssociatedParts.contains(part)) {
-                updatedProduct.deleteAssociatedPart(part);
-            }
+        } catch (NumberFormatException | IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Enter Proper Field Values, Please!");
+            alert.show();
         }
-
 
     }
 

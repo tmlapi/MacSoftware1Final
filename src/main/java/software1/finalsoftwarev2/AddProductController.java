@@ -122,21 +122,39 @@ public class AddProductController implements Initializable {
     @FXML
     void addProductSaveBtn(ActionEvent event) throws IOException {
 
-        int id = HelloApplication.productIdCounter += 1;
-        int stock = Integer.parseInt(addProductInvTxt.getText());
-        int min = Integer.parseInt(addProductMinTxt.getText());
-        String name = addProductNameTxt.getText();
-        int max = Integer.parseInt(addProductMaxTxt.getText());
-        double price = Double.parseDouble(addProductPriceTxt.getText());
+        try {
+            int id = HelloApplication.productIdCounter += 1;
+            int stock = Integer.parseInt(addProductInvTxt.getText());
+            int min = Integer.parseInt(addProductMinTxt.getText());
+            String name = addProductNameTxt.getText();
+            int max = Integer.parseInt(addProductMaxTxt.getText());
+            double price = Double.parseDouble(addProductPriceTxt.getText());
 
-        Product p = new Product(id, stock, min, max, name, price);
-        p.getAllAssociatedParts().addAll(allAssociatedParts);
-        Inventory.getAllProducts().add(p);
+            if (min > max) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Min Must Be Less Than Max!");
+                alert.showAndWait();
+            } else if (stock < min || stock > max ) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Inventory Must Be Between Min and Max!");
+                alert.showAndWait();
+            } else {
 
-        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+                Product p = new Product(id, stock, min, max, name, price);
+                p.getAllAssociatedParts().addAll(allAssociatedParts);
+                Inventory.getAllProducts().add(p);
+
+                stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();
+            }
+
+        } catch (NumberFormatException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Enter Correct Field Values, Please!");
+            alert.show();
+        }
 
     }
 

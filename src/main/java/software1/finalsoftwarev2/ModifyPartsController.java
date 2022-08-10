@@ -78,32 +78,49 @@ public class ModifyPartsController implements Initializable {
     @FXML
     void onActionSaveModifyPart(ActionEvent event) throws IOException {
 
-        int id = Integer.parseInt(modifyPartIdTxt.getText());
-        String name = modifyPartNameTxt.getText();
-        int stock = Integer.parseInt(modifyPartInvTxt.getText());
-        double price = Double.parseDouble(modifyPartPriceTxt.getText());
-        int max = Integer.parseInt(modifyPartMaxTxt.getText());
-        int min = Integer.parseInt(modifyPartMinTxt.getText());
+        try {
+            int id = Integer.parseInt(modifyPartIdTxt.getText());
+            String name = modifyPartNameTxt.getText();
+            int stock = Integer.parseInt(modifyPartInvTxt.getText());
+            double price = Double.parseDouble(modifyPartPriceTxt.getText());
+            int max = Integer.parseInt(modifyPartMaxTxt.getText());
+            int min = Integer.parseInt(modifyPartMinTxt.getText());
 
-        // Had to do this because system wasn't recognizing the variable since it was initilized in for loop
-        int machineId = 0;
-        String companyName = null;
-        if (modifyInhouseBtn.isSelected()) {
-            machineId = Integer.parseInt(modifyPartMacIDCompNameTxt.getText());
-        } else {
-            companyName = modifyPartMacIDCompNameTxt.getText();
+            // Had to do this because system wasn't recognizing the variable since it was initilized in for loop
+            int machineId = 0;
+            String companyName = null;
+            if (modifyInhouseBtn.isSelected()) {
+                machineId = Integer.parseInt(modifyPartMacIDCompNameTxt.getText());
+            } else {
+                companyName = modifyPartMacIDCompNameTxt.getText();
+            }
+
+            if (min > max) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Min Must Be Less Than Max!");
+                alert.showAndWait();
+            } else if (stock < min || stock > max ){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Inventory Must Be Between Min and Max!");
+                alert.showAndWait();
+            } else {
+                if (modifyInhouseBtn.isSelected()) {
+                    Inventory.updatePart(currentIndex, new InHouse(id, stock, min, max, name, price, machineId));
+                } else {
+                    Inventory.updatePart(currentIndex, new Outsourced(id, stock, min, max, name, price, companyName));
+                }
+                stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();
+            }
+
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Enter Correct Field Values, Please!");
+            alert.show();
         }
 
-        if (modifyInhouseBtn.isSelected()) {
-            Inventory.updatePart(currentIndex, new InHouse(id, stock, min, max, name, price, machineId));
-        } else {
-            Inventory.updatePart(currentIndex, new Outsourced(id, stock, min, max, name, price, companyName));
-        }
-
-        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
     }
 
     //Adding function to send data to modify information
