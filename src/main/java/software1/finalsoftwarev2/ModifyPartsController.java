@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * 
+ * The controller and methods for Modifying parts.
  */
 public class ModifyPartsController implements Initializable {
 
@@ -60,16 +60,31 @@ public class ModifyPartsController implements Initializable {
     @FXML
     private ToggleGroup modifyTogGroup;
 
+    /**
+     * In house button.
+     * Radion button that assigns text field to machineID.
+     * @param event ActionEvent
+     */
     @FXML
     void modifyInhouseRadio(ActionEvent event) {
         modifyMachineCompanyLbl.setText("Machine ID");
     }
 
+    /**
+     * Oursourced Radio Button.
+     * Radio button that assigns text field to Company Name.
+     * @param event ActionEvent
+     */
     @FXML
     void modifyOutsourcedRadio(ActionEvent event) {
         modifyMachineCompanyLbl.setText("Company Name");
     }
 
+    /**
+     * Modify Part Cancel Button.
+     * Allows user to cancel the modification of part and go back to main screen.
+     * @param event ActionEvent
+     */
     @FXML
     void onActionCancelModifyPart(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
@@ -78,6 +93,11 @@ public class ModifyPartsController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Save Modified Part Button.
+     * Allows user to save their modified part and update the selected part within the allparts table. Goes through logistical checks.
+     * @param event ActionEvent
+     */
     @FXML
     void onActionSaveModifyPart(ActionEvent event) throws IOException {
 
@@ -127,6 +147,13 @@ public class ModifyPartsController implements Initializable {
     }
 
     //Adding function to send data to modify information
+
+    /**
+     * SendOutsourced part method.
+     * Creates a method that allows the user to pass the selected outsourced part to the modify screen.
+     * @param index Integer of the index of the selected part
+     * @param part Part obejct of the selected part to be modified/sent
+     */
     public void sendOutsourcedPart (int index, Part part) {
 
         currentIndex = index;
@@ -145,6 +172,12 @@ public class ModifyPartsController implements Initializable {
         modifyOutsourceBtn.setSelected(true);
     }
 
+    /**
+     * Send InHouse Part Method.
+     * Creates a method that allows the user to pass the selected in house part to the moidfy screen.
+     * @param index Integer of the index of the selected part
+     * @param part Part object of the selected part to be modified/sent
+     */
     public void sendInhousePart (int index, Part part) {
 
         currentIndex = index;
@@ -164,6 +197,11 @@ public class ModifyPartsController implements Initializable {
     }
 
 
+    /**
+     * Main initilize screen for Modify Parts Controller
+     * @param url url
+     * @param resourceBundle resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

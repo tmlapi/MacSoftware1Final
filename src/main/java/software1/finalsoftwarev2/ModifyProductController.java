@@ -20,14 +20,28 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Main class for the Modify Product Controller.
+ */
 public class ModifyProductController implements Initializable {
 
     Stage stage;
     Parent scene;
 
+    /**
+     * Creates a temp associated parts list.
+     * List that holds associated part to be accessed by private Product Methods.
+     */
     public ObservableList<Part> allAssociatedParts = FXCollections.observableArrayList();
+
+    /**
+     * Current Index to hold index of selected product.
+     */
     int currentIndex = 0;
 
+    /**
+     * Creates a temp Product object to access Product Methods.
+     */
     Product selectedProduct;
     @FXML
     private TableColumn<Part, Integer> modifyProductAssociatedPartIdCol;
@@ -80,6 +94,11 @@ public class ModifyProductController implements Initializable {
     @FXML
     private TextField modifyProductSearch;
 
+    /**
+     * Modify Product Add Associated Parts Button.
+     * Allows user to select parts that they want associated with their product.
+     * @param event ActionEvent
+     */
     @FXML
     void modifyProductAddBtn(ActionEvent event) {
 
@@ -94,6 +113,11 @@ public class ModifyProductController implements Initializable {
 
     }
 
+    /**
+     * Cancel Button for modifying products.
+     * Allows users to cancel their Product modification and return to the main screen.
+     * @param event ActionEvent
+     */
     @FXML
     void modifyProductCancelBtn(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
@@ -102,6 +126,11 @@ public class ModifyProductController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Part removal button.
+     * Allows user to remove associated parts from a Product as well as remove from temporary list. Does logistical checks as well.
+     * @param event ActionEvent
+     */
     @FXML
     void modifyProductRemoveBtn(ActionEvent event) {
         Part deleteAssociatedPart = modifyProductAssociatedPartTableView.getSelectionModel().getSelectedItem();
@@ -120,6 +149,12 @@ public class ModifyProductController implements Initializable {
         }
     }
 
+    /**
+     * Modify Product Save Button.
+     * Allows user to save new product to all proudct list. Also allows user to update associate parts and all associated lists.
+     * Performs logistical checks.
+     * @param event ActionEvent
+     */
     @FXML
     void modifyProductSaveBtn(ActionEvent event) {
         try {
@@ -174,6 +209,11 @@ public class ModifyProductController implements Initializable {
 
     }
 
+    /**
+     * Part Search Button.
+     * Allows user to search available parts to be associated.
+     * @param event ActionEvents
+     */
     @FXML
     void modifyProductSearchBtn(ActionEvent event) {
 
@@ -184,6 +224,13 @@ public class ModifyProductController implements Initializable {
         modifyProductAvailablePartTableView.setItems(filteredParts);
     }
 
+    /**
+     * Send Product Method.
+     * Allows user to select a product form main screen and send that data over to the modify products screen.
+     * This also loads all tables with correct information.
+     * @param index
+     * @param product
+     */
     public void sendProduct (int index, Product product) {
         selectedProduct = product;
         currentIndex = index;
@@ -213,6 +260,11 @@ public class ModifyProductController implements Initializable {
         }
     }
 
+    /**
+     * Main initilize method for the modify product controller.
+     * @param url url 
+     * @param resourceBundle resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
