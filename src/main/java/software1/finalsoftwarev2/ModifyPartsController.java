@@ -170,6 +170,7 @@ public class ModifyPartsController implements Initializable {
         //to me to set the btn based on this method. Because it was located in the ModifyPartsController, it allowed
         //me to access the button which it wouldn't do in the MainScreen!
         modifyOutsourceBtn.setSelected(true);
+        modifyMachineCompanyLbl.setText("Company Name");
     }
 
     /**
@@ -194,6 +195,7 @@ public class ModifyPartsController implements Initializable {
         //to me to set the btn based on this method. Because it was located in the ModifyPartsController, it allowed
         //me to access the button which it wouldn't do in the MainScreen!
         modifyInhouseBtn.setSelected(true);
+        modifyMachineCompanyLbl.setText("Machine ID");
     }
 
 

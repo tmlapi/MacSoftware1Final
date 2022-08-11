@@ -64,6 +64,37 @@ public class Inventory {
     }
 
     /**
+     * Part Lookup.
+     * Return a part if a matching id is found.
+     * @param id Integer that passed as a parameter matching a part id
+     * @return Return a part that matches the provided ID if one is found
+     */
+    public static Part lookupPart (int id) {
+        for (Part part : Inventory.getAllParts()) {
+            if (id == part.getId()) {
+                return part;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Product Lookup.
+     * Return a product if a matching id is found.
+     * @param id Integer that is passed as a parameter matching product id
+     * @return Return a product that matches the provided ID if one is found
+     */
+    public static Product lookupProduct (int id) {
+        for (Product product : Inventory.getAllProducts()) {
+            if (id == product.getId()) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+
+    /**
      * Product lookup.
      * Allows us to lookup products based on name of ID.
      * @param name is a String that allows us to search

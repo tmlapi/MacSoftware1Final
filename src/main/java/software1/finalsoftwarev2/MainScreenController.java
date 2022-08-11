@@ -101,16 +101,29 @@ public class MainScreenController implements Initializable {
      */
     @FXML
     void onActionDeletePart(ActionEvent event) {
-        Part deletePart = partTableView.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.WARNING, "Part Will Be Deleted, Press 'OK' To Continue!", ButtonType.OK, ButtonType.CANCEL);
+        try {
+            Part deletePart = partTableView.getSelectionModel().getSelectedItem();
+            if (deletePart == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Select a Part For Deletion!");
+                alert.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING, "Part Will Be Deleted, Press 'OK' To Continue!", ButtonType.OK, ButtonType.CANCEL);
 
-        Optional<ButtonType> result = alert.showAndWait();
+                Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            Inventory.deletePart(deletePart);
-        } else if (result.get() == ButtonType.CANCEL) {
-            Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "No Changes Made");
-            alert1.show();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    Inventory.deletePart(deletePart);
+                } else if (result.get() == ButtonType.CANCEL) {
+                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "No Changes Made");
+                    alert1.show();
+                }
+            }
+
+        } catch (NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Select a Part For Deletion!");
+            alert.show();
         }
     }
 
@@ -127,19 +140,25 @@ public class MainScreenController implements Initializable {
     void onActionDeleteProduct(ActionEvent event) {
         Product deleteProduct = productTableView.getSelectionModel().getSelectedItem();
 
-        if (deleteProduct.getAllAssociatedParts().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Product Will Be Deleted, Press 'OK' To Continue!", ButtonType.OK, ButtonType.CANCEL);
+        try {
+            if (deleteProduct.getAllAssociatedParts().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING, "Product Will Be Deleted, Press 'OK' To Continue!", ButtonType.OK, ButtonType.CANCEL);
 
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                Inventory.deleteProduct(deleteProduct);
-            } else if (result.get() == ButtonType.CANCEL) {
-                Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "No Changes Made");
-                alert1.show();
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    Inventory.deleteProduct(deleteProduct);
+                } else if (result.get() == ButtonType.CANCEL) {
+                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "No Changes Made");
+                    alert1.show();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Associated Parts Exist for This Product. Cannot Delete Product!");
+                alert.show();
             }
-        } else {
+        } catch (NullPointerException e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Associated Parts Exist for This Product. Cannot Delete Product!");
+            alert.setContentText("Select a Product For Deletion!");
             alert.show();
         }
     }
